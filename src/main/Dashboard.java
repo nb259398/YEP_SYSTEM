@@ -15,6 +15,9 @@ public class Dashboard {
 
         JButton courses = new JButton("Learning Modules");
         courses.setBounds(80, 80, 200, 40);
+        courses.addActionListener(e -> {
+    new LearningModules();
+    });
 
         JButton teams = new JButton("Teams");
         teams.setBounds(80, 140, 200, 40);
