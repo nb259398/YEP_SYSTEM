@@ -14,6 +14,16 @@ public class Teams {
 
         JLabel title =
                 new JLabel("Available Teams");
+        javax.swing.JButton createTeam =
+        new javax.swing.JButton("Create Team");
+
+createTeam.setBounds(230,20,120,30);
+
+createTeam.addActionListener(e -> {
+    new CreateTeam();
+});
+
+frame.add(createTeam);
 
         title.setBounds(120,20,200,30);
 

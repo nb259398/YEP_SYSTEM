@@ -4,6 +4,7 @@ import dao.ProjectDAO;
 import java.sql.ResultSet;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JButton;
 
 public class Projects {
 
@@ -18,6 +19,16 @@ public class Projects {
         title.setBounds(120,20,200,30);
 
         frame.add(title);
+        JButton submitProject =
+        new JButton("Submit Project");
+
+     submitProject.setBounds(300,20,150,30);
+
+     submitProject.addActionListener(e -> {
+     new SubmitProject();
+});
+
+     frame.add(submitProject);
 
         try {
 

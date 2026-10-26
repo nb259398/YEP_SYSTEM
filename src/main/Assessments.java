@@ -4,6 +4,7 @@ import dao.AssessmentDAO;
 import java.sql.ResultSet;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JButton;
 
 public class Assessments {
 
@@ -18,6 +19,16 @@ public class Assessments {
         title.setBounds(120,20,200,30);
 
         frame.add(title);
+        JButton resultsButton =
+        new JButton("Add Result");
+
+     resultsButton.setBounds(300,20,120,30);
+
+     resultsButton.addActionListener(e -> {
+      new AssessmentResults();
+});
+
+    frame.add(resultsButton);
 
         try {
 

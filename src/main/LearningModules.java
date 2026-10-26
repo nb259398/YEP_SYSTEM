@@ -4,6 +4,7 @@ import dao.CourseDAO;
 import java.sql.ResultSet;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JButton;
 
 public class LearningModules {
 
@@ -18,6 +19,16 @@ public class LearningModules {
         title.setBounds(120,20,200,30);
 
         frame.add(title);
+        JButton enrollButton =
+        new JButton("Enroll");
+
+enrollButton.setBounds(320,20,100,30);
+
+enrollButton.addActionListener(e -> {
+    new CourseEnrollment();
+});
+
+frame.add(enrollButton);
 
         try {
 

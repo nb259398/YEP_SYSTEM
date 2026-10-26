@@ -29,4 +29,31 @@ public class TeamDAO {
 
         return null;
     }
+    public boolean createTeam(String teamName) {
+
+    try {
+
+        Connection con =
+                DBConnection.getConnection();
+
+        String sql =
+                "INSERT INTO teams(team_name) VALUES(?)";
+
+        PreparedStatement ps =
+                con.prepareStatement(sql);
+
+        ps.setString(1, teamName);
+
+        int result =
+                ps.executeUpdate();
+
+        return result > 0;
+
+    } catch(Exception e) {
+
+        e.printStackTrace();
+    }
+
+    return false;
+}
 }

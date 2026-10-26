@@ -4,6 +4,7 @@ import dao.CertificateDAO;
 import java.sql.ResultSet;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JButton;
 
 public class Certificates {
 
@@ -18,6 +19,16 @@ public class Certificates {
         title.setBounds(120,20,250,30);
 
         frame.add(title);
+        JButton awardButton =
+        new JButton("Award");
+
+    awardButton.setBounds(320,20,100,30);
+
+    awardButton.addActionListener(e -> {
+    new AwardCertificate();
+});
+
+    frame.add(awardButton);
 
         try {
 
