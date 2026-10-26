@@ -21,9 +21,15 @@ public class Dashboard {
 
         JButton teams = new JButton("Teams");
         teams.setBounds(80, 140, 200, 40);
+        teams.addActionListener(e -> {
+    new Teams();
+});
 
         JButton projects = new JButton("Projects");
         projects.setBounds(80, 200, 200, 40);
+        projects.addActionListener(e -> {
+    new Projects();
+});
 
         JButton certificates = new JButton("Certificates");
         certificates.setBounds(80, 260, 200, 40);
