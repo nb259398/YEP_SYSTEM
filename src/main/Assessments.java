@@ -1,6 +1,7 @@
 package main;
 
-import javax.swing.JButton;
+import dao.AssessmentDAO;
+import java.sql.ResultSet;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -8,28 +9,67 @@ public class Assessments {
 
     public Assessments() {
 
-        JFrame frame = new JFrame("Assessments");
+        JFrame frame =
+                new JFrame("Assessments");
 
-        JLabel title = new JLabel("Assessment Center");
+        JLabel title =
+                new JLabel("Assessment Center");
+
         title.setBounds(120,20,200,30);
 
-        JButton takeTest = new JButton("Take Assessment");
-        takeTest.setBounds(80,80,200,40);
-
-        JButton viewScore = new JButton("View Score");
-        viewScore.setBounds(80,140,200,40);
-
-        JButton feedback = new JButton("Feedback");
-        feedback.setBounds(80,200,200,40);
-
         frame.add(title);
-        frame.add(takeTest);
-        frame.add(viewScore);
-        frame.add(feedback);
 
-        frame.setSize(400,350);
+        try {
+
+            AssessmentDAO dao =
+                    new AssessmentDAO();
+
+            ResultSet rs =
+                    dao.getAssessments();
+
+            int y = 80;
+
+            boolean hasData = false;
+
+            while(rs.next()) {
+
+                hasData = true;
+
+                JLabel assessment =
+                        new JLabel(
+                                rs.getString("title")
+                        );
+
+                assessment.setBounds(50,y,300,30);
+
+                frame.add(assessment);
+
+                y += 40;
+            }
+
+            if(!hasData){
+
+                JLabel empty =
+                        new JLabel(
+                                "No assessments available yet."
+                        );
+
+                empty.setBounds(50,80,250,30);
+
+                frame.add(empty);
+            }
+
+        } catch(Exception e){
+
+            e.printStackTrace();
+        }
+
+        frame.setSize(450,350);
         frame.setLayout(null);
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        frame.setDefaultCloseOperation(
+                JFrame.DISPOSE_ON_CLOSE
+        );
     }
 }

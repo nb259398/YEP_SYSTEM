@@ -1,6 +1,7 @@
 package main;
 
-import javax.swing.JButton;
+import dao.CertificateDAO;
+import java.sql.ResultSet;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -8,36 +9,51 @@ public class Certificates {
 
     public Certificates() {
 
-        JFrame frame = new JFrame("Certificates");
+        JFrame frame =
+                new JFrame("Certificates");
 
-        JLabel title = new JLabel("Certificate Center");
-        title.setBounds(120,20,200,30);
+        JLabel title =
+                new JLabel("Available Certificates");
 
-        JButton generate =
-                new JButton("Generate Certificate");
-
-        generate.setBounds(80,80,220,40);
-
-        JButton view =
-                new JButton("View Certificate");
-
-        view.setBounds(80,140,220,40);
-
-        JButton download =
-                new JButton("Download Certificate");
-
-        download.setBounds(80,200,220,40);
+        title.setBounds(120,20,250,30);
 
         frame.add(title);
-        frame.add(generate);
-        frame.add(view);
-        frame.add(download);
 
-        frame.setSize(420,350);
+        try {
+
+            CertificateDAO dao =
+                    new CertificateDAO();
+
+            ResultSet rs =
+                    dao.getCertificates();
+
+            int y = 80;
+
+            while(rs.next()) {
+
+                JLabel cert =
+                        new JLabel(
+                                rs.getString("certificate_name")
+                        );
+
+                cert.setBounds(50,y,300,30);
+
+                frame.add(cert);
+
+                y += 40;
+            }
+
+        } catch(Exception e) {
+
+            e.printStackTrace();
+        }
+
+        frame.setSize(500,400);
         frame.setLayout(null);
         frame.setVisible(true);
 
         frame.setDefaultCloseOperation(
-                JFrame.DISPOSE_ON_CLOSE);
+                JFrame.DISPOSE_ON_CLOSE
+        );
     }
 }

@@ -1,35 +1,59 @@
 package main;
 
+import dao.TeamDAO;
+import java.sql.ResultSet;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JButton;
 
 public class Teams {
 
     public Teams() {
 
-        JFrame frame = new JFrame("Teams");
+        JFrame frame =
+                new JFrame("Teams");
 
-        JLabel title = new JLabel("Team Management");
+        JLabel title =
+                new JLabel("Available Teams");
+
         title.setBounds(120,20,200,30);
 
-        JButton createTeam = new JButton("Create Team");
-        createTeam.setBounds(80,80,200,40);
-
-        JButton joinTeam = new JButton("Join Team");
-        joinTeam.setBounds(80,140,200,40);
-
-        JButton viewTeams = new JButton("View Teams");
-        viewTeams.setBounds(80,200,200,40);
-
         frame.add(title);
-        frame.add(createTeam);
-        frame.add(joinTeam);
-        frame.add(viewTeams);
+
+        try {
+
+            TeamDAO dao =
+                    new TeamDAO();
+
+            ResultSet rs =
+                    dao.getTeams();
+
+            int y = 80;
+
+            while(rs.next()) {
+
+                JLabel team =
+                        new JLabel(
+                                rs.getString("team_name")
+                        );
+
+                team.setBounds(50,y,300,30);
+
+                frame.add(team);
+
+                y += 40;
+            }
+
+        } catch(Exception e) {
+
+            e.printStackTrace();
+        }
 
         frame.setSize(400,350);
         frame.setLayout(null);
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        frame.setDefaultCloseOperation(
+                JFrame.DISPOSE_ON_CLOSE
+        );
     }
 }

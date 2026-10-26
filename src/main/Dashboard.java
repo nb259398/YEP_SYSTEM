@@ -42,7 +42,15 @@ public class Dashboard {
         certificates.addActionListener(e -> {
     new Certificates();
 });
+        JButton reports = new JButton("Reports");
 
+       reports.setBounds(80,380,200,40);
+
+       reports.addActionListener(e -> {
+    new Reports();
+});
+
+        frame.add(reports);
         frame.add(title);
         frame.add(courses);
         frame.add(teams);
