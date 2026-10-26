@@ -39,6 +39,9 @@ public class Dashboard {
 
         JButton certificates = new JButton("Certificates");
         certificates.setBounds(80, 320, 200, 40);
+        certificates.addActionListener(e -> {
+    new Certificates();
+});
 
         frame.add(title);
         frame.add(courses);
