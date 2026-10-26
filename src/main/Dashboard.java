@@ -30,17 +30,24 @@ public class Dashboard {
         projects.addActionListener(e -> {
     new Projects();
 });
+        JButton assessments = new JButton("Assessments");
+         assessments.setBounds(80, 260, 200, 40);
+
+        assessments.addActionListener(e -> {
+         new Assessments();
+});
 
         JButton certificates = new JButton("Certificates");
-        certificates.setBounds(80, 260, 200, 40);
+        certificates.setBounds(80, 320, 200, 40);
 
         frame.add(title);
         frame.add(courses);
         frame.add(teams);
         frame.add(projects);
+        frame.add(assessments);
         frame.add(certificates);
 
-        frame.setSize(400, 400);
+        frame.setSize(450, 500);
         frame.setLayout(null);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
