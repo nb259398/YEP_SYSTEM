@@ -1,73 +1,145 @@
 package main;
 
 import dao.ReportDAO;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
-public class Reports {
+public class Reports extends JFrame {
 
     public Reports() {
 
-        JFrame frame = new JFrame("YEP Reports");
-
         ReportDAO reportDAO = new ReportDAO();
 
-        int totalUsers =
-                reportDAO.getTotalRecords("users");
+        int totalUsers = reportDAO.getTotalRecords("users");
+        int totalCourses = reportDAO.getTotalRecords("courses");
+        int totalTeams = reportDAO.getTotalRecords("teams");
+        int totalProjects = reportDAO.getTotalRecords("projects");
+        int totalCertificates = reportDAO.getTotalRecords("certificates");
 
-        int totalCourses =
-                reportDAO.getTotalRecords("courses");
+        setTitle("YEP Reports Dashboard");
+        setSize(950, 600);
+        setLayout(null);
+        setLocationRelativeTo(null);
+        getContentPane().setBackground(new Color(240, 244, 248));
 
-        int totalTeams =
-                reportDAO.getTotalRecords("teams");
+        // TITLE
+        JLabel title = new JLabel("YOUTH EMPOWERMENT PROJECT REPORTS");
+        title.setBounds(180, 20, 600, 40);
+        title.setFont(new Font("Segoe UI", Font.BOLD, 24));
+        title.setForeground(new Color(25, 118, 210));
+        add(title);
 
-        int totalProjects =
-                reportDAO.getTotalRecords("projects");
+        // USERS CARD
+        JPanel usersCard = createCard(
+                "TOTAL USERS",
+                String.valueOf(totalUsers),
+                new Color(52, 152, 219));
+        usersCard.setBounds(40, 100, 250, 130);
+        add(usersCard);
 
-        int totalCertificates =
-                reportDAO.getTotalRecords("certificates");
+        // COURSES CARD
+        JPanel coursesCard = createCard(
+                "TOTAL COURSES",
+                String.valueOf(totalCourses),
+                new Color(46, 204, 113));
+        coursesCard.setBounds(340, 100, 250, 130);
+        add(coursesCard);
 
-        JLabel title =
-                new JLabel("YOUTH EMPOWERMENT PROJECT REPORT");
+        // TEAMS CARD
+        JPanel teamsCard = createCard(
+                "TOTAL TEAMS",
+                String.valueOf(totalTeams),
+                new Color(155, 89, 182));
+        teamsCard.setBounds(640, 100, 250, 130);
+        add(teamsCard);
 
-        title.setBounds(70,20,300,30);
+        // PROJECTS CARD
+        JPanel projectsCard = createCard(
+                "TOTAL PROJECTS",
+                String.valueOf(totalProjects),
+                new Color(230, 126, 34));
+        projectsCard.setBounds(190, 300, 250, 130);
+        add(projectsCard);
 
-        JLabel users =
-                new JLabel("Total Users: " + totalUsers);
+        // CERTIFICATES CARD
+        JPanel certificatesCard = createCard(
+                "TOTAL CERTIFICATES",
+                String.valueOf(totalCertificates),
+                new Color(231, 76, 60));
+        certificatesCard.setBounds(500, 300, 250, 130);
+        add(certificatesCard);
 
-        users.setBounds(50,80,250,30);
+        // FOOTER
+        JLabel footer = new JLabel("Youth Empowerment Project Management System");
+        footer.setBounds(280, 500, 400, 30);
+        footer.setForeground(Color.GRAY);
+        footer.setFont(new Font("Segoe UI", Font.ITALIC, 14));
+        add(footer);
+        // BACK BUTTON
+javax.swing.JButton btnBack = new javax.swing.JButton("← Back");
 
-        JLabel courses =
-                new JLabel("Total Courses: " + totalCourses);
+btnBack.setBounds(20, 20, 100, 35);
+btnBack.setFont(new Font("Segoe UI", Font.BOLD, 14));
+btnBack.setBackground(new Color(52, 152, 219));
+btnBack.setForeground(Color.WHITE);
+btnBack.setFocusPainted(false);
 
-        courses.setBounds(50,120,250,30);
+btnBack.addActionListener(e -> {
+    dispose(); // closes reports page
 
-        JLabel teams =
-                new JLabel("Total Teams: " + totalTeams);
+    // Opens Dashboard
+    new Dashboard(); 
+});
 
-        teams.setBounds(50,160,250,30);
+add(btnBack);
 
-        JLabel projects =
-                new JLabel("Total Projects: " + totalProjects);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setVisible(true);
+    }
 
-        projects.setBounds(50,200,250,30);
+    private JPanel createCard(String titleText, String valueText, Color color) {
 
-        JLabel certificates =
-                new JLabel("Total Certificates: " + totalCertificates);
+        JPanel panel = new JPanel();
+        panel.setLayout(null);
 
-        certificates.setBounds(50,240,250,30);
+        panel.setBackground(Color.WHITE);
 
-        frame.add(title);
-        frame.add(users);
-        frame.add(courses);
-        frame.add(teams);
-        frame.add(projects);
-        frame.add(certificates);
+        panel.setBorder(
+                BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(color, 3),
+                        BorderFactory.createEmptyBorder(10, 10, 10, 10)
+                )
+        );
 
-        frame.setSize(450,400);
-        frame.setLayout(null);
-        frame.setVisible(true);
+        JLabel title = new JLabel(titleText);
+        title.setBounds(15, 15, 200, 25);
+        title.setForeground(color);
+        title.setFont(new Font("Segoe UI", Font.BOLD, 16));
 
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        JLabel value = new JLabel(valueText);
+        value.setBounds(15, 45, 200, 50);
+        value.setHorizontalAlignment(SwingConstants.CENTER);
+        value.setFont(new Font("Segoe UI", Font.BOLD, 36));
+        value.setForeground(Color.DARK_GRAY);
+
+        panel.add(title);
+        panel.add(value);
+
+        return panel;
+    }
+
+    public static void main(String[] args) {
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Reports();
+            }
+        });
+
     }
 }
